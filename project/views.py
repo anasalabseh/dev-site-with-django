@@ -4,16 +4,28 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .models import Project
-from .forms import ProjectForm
+from .forms import ProjectForm, ReviewForm
 from .utils import searchProjects, paginateProjects
+from django.contrib import messages
 
 def project(request,pk):
-    project_selected = Project.objects.get(id=pk)
+    selected_project = Project.objects.get(id=pk)
 
+    form= ReviewForm()
+    if request.method == 'POST':
+        form= ReviewForm(request.POST)
+        review= form.save(commit=False)
+        review.project= selected_project
+        review.owner= request.user.profile
+        review.save()
 
+        selected_project.getVoteCount
 
-    
-    return render(request, 'project/single-project.html', {'project':project_selected})
+        messages.success(request, 'Your commennt was successfullly added')
+        return redirect('project', pk= selected_project.id)
+
+    context= {'project': selected_project, 'form': form} 
+    return render(request, 'project/single-project.html', context)
 
     #the second argument in render method is the html file path and it is relative to the directory we configured in settings.py--TEMPLATES
 

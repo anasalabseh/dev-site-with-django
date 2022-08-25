@@ -25,6 +25,21 @@ class Project(models.Model):
         #this function will change the string viewed on the admin table
         #instead of viewing the id and many other things we only view th project title
         return self.title
+    
+    class Meta:
+        ordering= ['-vote_ratio', '-vote_count', 'title']
+    
+    
+    @property
+    def getVoteCount(self):
+        reviews= self.review_set.all()
+        total_reviews= reviews.count()
+        positive_votes= reviews.filter(value= 'up').count()
+        ratio= int(positive_votes/total_reviews) * 100
+        self.vote_count= total_reviews
+        self.vote_ratio= ratio
+        self.save()
+
 
 class Review(models.Model):
     VOTE_TYPE= (
@@ -40,8 +55,13 @@ class Review(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     id= models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
+    class Meta:
+        unique_together= [['owner', 'project']]
+
     def __str__(self):
         return self.value
+    
+
 
 class Tag(models.Model):
     name= models.CharField(max_length=200)
