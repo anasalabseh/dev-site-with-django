@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .models import Project
 from .forms import ProjectForm
+from .utils import searchProjects, paginateProjects
 
 def project(request,pk):
     project_selected = Project.objects.get(id=pk)
@@ -17,7 +18,11 @@ def project(request,pk):
     #the second argument in render method is the html file path and it is relative to the directory we configured in settings.py--TEMPLATES
 
 def projects(request):
-    context = {'projects':Project.objects.all()}
+    projects, search_query= searchProjects(request)
+    custom_range, projects= paginateProjects(request, projects, 6)
+ 
+    context = {'projects': projects, 'search_query': search_query,
+                'custom_range': custom_range}
     
     return render(request,'project/projects.html', context)
 

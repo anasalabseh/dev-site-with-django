@@ -4,10 +4,10 @@ from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, SkillForm
 from django.contrib import messages
 from .forms import ProfileForm
-
+from .utils import paginateProfiles, searchProfiles
 from django.contrib.auth.models import User
 from .models import Profile, Skill
-
+from django.core.paginator import Paginator
 # Create your views here.
 
 def loginUser(request):
@@ -68,8 +68,10 @@ def registerUser(request):
     return render(request, 'users/login-page.html', context)
 
 def profiles(request):
-    profiles =  Profile.objects.all()
-    context = {'profiles':profiles}
+    profiles, search_query= searchProfiles(request)
+    custom_range, profiles= paginateProfiles(request, profiles, 6)
+
+    context = {'profiles':profiles, 'search_query': search_query, 'custom_range': custom_range}
 
     return render(request, 'users/profiles.html', context)
 

@@ -31,7 +31,7 @@ class Review(models.Model):
         ('up', 'Up Vote'),
         ('down', 'Down Vote'),
     )
-    #owner= 
+    owner= models.ForeignKey(Profile, on_delete= models.CASCADE, null= True)
     project=models.ForeignKey(Project, on_delete= models.CASCADE)
     #this simply means that when we delete this project all the reviews that connected to this project will be deleted as well
     #although, if we set the on_delete property to SET_NULL then the reviews will be left alone but the project property will be null
