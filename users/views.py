@@ -20,7 +20,7 @@ def loginUser(request):
         return redirect('profiles')
 
     if request.method == 'POST':
-        username = request.POST['username']
+        username = request.POST['username'].lower()
         password = request.POST['password']
         try:
             user= User.objects.get(username= username)
@@ -33,7 +33,7 @@ def loginUser(request):
         if user is not None:
             login(request, user)
             #this will create a session in the sessions table in the data base, and it will be stored in your cookies
-            return redirect('profiles')
+            return redirect(request.GET['next'] if 'next' in request.GET else 'account' )
         else:
             messages.error(request, 'wrong username or password')
 

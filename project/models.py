@@ -39,6 +39,11 @@ class Project(models.Model):
         self.vote_count= total_reviews
         self.vote_ratio= ratio
         self.save()
+    
+    @property
+    def reviewrs(self):
+        queryset= self.review_set.all().value_list('owner__id', flat= True)
+        return queryset
 
 
 class Review(models.Model):
