@@ -39,15 +39,17 @@ class Skill(models.Model):
     def __str__(self):
         return str(self.name)
 
-class Messege(models.Model):
+class Message(models.Model):
     sender= models.ForeignKey(Profile, on_delete= models.SET_NULL, null= True)
     recipient= models.ForeignKey(Profile, on_delete= models.SET_NULL, null= True, related_name= "messages")
     #what related_name attribute does, we can call the related messages of a particuler profile using profile.messages
     #instead of Profile.message_set.all
+    #we needed ti add this attribute brcause we can't have to foreign key relationship without it
     name= models.CharField(max_length= 150, blank= True, null= True, )
     email= models.CharField(max_length= 250, blank= True, null= True)
     subject= models.CharField(max_length= 200, blank= True, null= True)
     body= models.TextField()
+    #this cannot be blank so no one can send empty message
     is_read= models.BooleanField(default= False, null=True)
 
     created = models.DateTimeField(auto_now_add=True)

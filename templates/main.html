@@ -31,6 +31,8 @@
         {% endfor %}
     </ul>
     {% endif %} -->
+    {% if messages %}
+
 
     {% for message in messages %}
     <div class="alert alert--{{message.tag}}">
@@ -39,19 +41,10 @@
       </div>
     {% endfor %}
 
-    
+    {% endif %}    
 
     {% block content%}
-    {% if messages %}
-    
-    {% for message in messages %}
-    <div id="centeralized" class="alert alert--{{message.tag}}">
-        <p class="alert__message">{{message}}</p>
-        <button class="alert__close">x</button>
-      </div>
-    {% endfor %}
 
-{% endif %}
     {% endblock %}
 
 
