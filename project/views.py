@@ -8,6 +8,7 @@ from .forms import ProjectForm, ReviewForm
 from .utils import searchProjects, paginateProjects
 from django.contrib import messages
 
+
 def project(request,pk):
     selected_project = Project.objects.get(id=pk)
 

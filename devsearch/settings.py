@@ -32,6 +32,7 @@ ALLOWED_HOSTS = [ 'localhost', '127.0.0.1']
 # Registering my application so django will know where to get the migrations from
 
 INSTALLED_APPS = [
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,8 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'project.apps.ProjectConfig',
     'users.apps.UsersConfig',
-    
-    'rest_framework'
 
 
 ]

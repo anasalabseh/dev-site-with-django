@@ -1,13 +1,4 @@
-from django.http import JsonResponse
+from django.shortcuts import render
 
-def getRoutes(request):
-    routes= [
-        {'GET': '/api/projects'},
-        {'GET': '/api/projects/id'},
-        {'POST': '/api/projects/id/vote'},
-        
-        {'POST': '/api/users/token'},
-        {'POST': '/api/users/token/refresh'}
-    ]
-    
-    return JsonResponse(routes, safe= False)
+# Create your views here.
+from rest_framework.response import Response
