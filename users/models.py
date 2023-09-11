@@ -7,7 +7,7 @@ import uuid
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete= models.CASCADE)
-    #OneToOneField is simply the class Profile extends the class User
+    # OneToOneField is simply the class Profile extends the class User
     name = models.CharField(max_length= 100, null= True, blank= True)
     username = models.CharField(max_length= 100, null= True, blank= True)
     email = models.EmailField(max_length= 500, null=True, blank=True)
@@ -31,9 +31,7 @@ class Skill(models.Model):
     owner = models.ForeignKey(Profile, on_delete = models.CASCADE, null= True, blank= True)
     name = models.CharField(max_length= 200, null= True, blank= True)
     description = models.TextField(max_length= 500, null= True, blank= True)
-
     created = models.DateTimeField(auto_now_add=True)
-   
     id= models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
     def __str__(self):
@@ -51,9 +49,7 @@ class Message(models.Model):
     body= models.TextField()
     #this cannot be blank so no one can send empty message
     is_read= models.BooleanField(default= False, null=True)
-
     created = models.DateTimeField(auto_now_add=True)
-   
     id= models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
     def __str__(self):

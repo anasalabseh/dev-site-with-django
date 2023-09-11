@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from .models import Profile
 
 #@receiver(post_save, sender= Profile)
-#decoraters is a way to decorate some functions which means adding some additional functionality into the function 
+#decoraters is a way to decorate some functions which means adding some additional functionalities into the function 
 
 
 def createProfile(sender, instance, created,  **kwargs):
